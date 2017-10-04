@@ -106,8 +106,8 @@ namespace Lab4
                         break;
                 }
             } // End of Game loop!
-        } 
-        
+        }
+
         public static void PrintMap(Board[,] map)
         {
             // string tempMap = "";
