@@ -8,6 +8,7 @@ namespace Lab4
 {
     class Program
     {
+        public static Sword sword = new Sword();
         public static Board[,] map = new Board[8, 20]; // Skapar spelkartan, datatyp 'Board(Base-Class)'
         public static int mapLengthX = map.GetLength(1) - 1;
         public static int mapLengthY = map.GetLength(0) - 1;
@@ -60,10 +61,10 @@ namespace Lab4
             map[2, 12] = new Orc(70, 15);
             map[1, 5] = new Orc(70, 15);
 
-            map[6, 2] = new KeyRoom();
-            map[5, 8] = new KeyRoom();
-            map[1, 17] = new KeyRoom();
-            map[4, 12] = new KeyRoom();
+            map[6, 2] = new KeyRoom(1);
+            map[5, 8] = new KeyRoom(2);
+            map[1, 17] = new KeyRoom(1);
+            map[4, 12] = new KeyRoom(1);
 
             map[5, 10] = new Sword();
 
@@ -134,9 +135,11 @@ namespace Lab4
                 case ("D"):
                     Door.DoorInteraction();
                     if (!Door.IsLocked)
-                    {
+                    {   
+
                         Console.WriteLine("\nUnlocked door!");
-                        Player.NumOfKeys -= 1;
+                        
+
                         if (Player.NumOfKeys <= 0)
                             Player.HasKey = false;
                     }
@@ -155,8 +158,18 @@ namespace Lab4
                     Console.Clear();
                     break;
                 case ("K"):
-                    Console.WriteLine("\nYou entered a room and found a key!");
-                    Player.NumOfKeys += 1;
+
+                    if (map[playerPosY, playerPosX] == map[5, 8])
+                    {
+                        Player.numOfSuperkeys += 1;
+                        Console.WriteLine("Found a super key");
+                     
+                    }
+                    else
+                    {
+                        Player.NumOfKeys += 1;
+                        Console.WriteLine("\nYou entered a room and found a key!");
+                    }
                     Player.HasKey = true;
                     Console.ReadKey();
                     break;
@@ -168,6 +181,7 @@ namespace Lab4
                 case ("$"):
                     
                     Sword sword = new Sword();
+                    Player.hasSword = true;
                     sword.ExtraAttackDamage();
                     Console.WriteLine($"You gained +10 attack damage for picking up a sword");
                     Console.ReadKey();

@@ -25,6 +25,8 @@ namespace Lab4
         public static int steps = 0;
         public static int score = 0;
         public static int finalScore = 0;
+        public static bool hasSword = false;
+        public static int numOfSuperkeys = 0;
 
         // Access Modifiers (Propertys)
         public static int CurPosX { get { return curPosX; } set { curPosX = value; } }
