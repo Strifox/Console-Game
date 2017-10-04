@@ -34,7 +34,7 @@ namespace Lab4
             }
             else
             {
-                Player.numOfSuperkeys -= 1;
+                Durability -= 1;
             }
 
         }
