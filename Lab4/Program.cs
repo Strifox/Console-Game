@@ -64,6 +64,8 @@ namespace Lab4
             map[1, 17] = new KeyRoom();
             map[4, 12] = new KeyRoom();
 
+            map[5, 10] = new Sword();
+
             map[1, 2] = new ExitDoor();
 
             map[Player.CurPosY, Player.CurPosX] = new Player();
@@ -139,14 +141,16 @@ namespace Lab4
                     Console.WriteLine("\nYou entered a room and found a key!");
                     Player.NumOfKeys += 1;
                     Player.HasKey = true;
-
                     Console.ReadKey();
                     break;
                 case ("#"):
                     Player.steps--;
                     Player.CurPosX = Player.OldPosX;
                     Player.CurPosY = Player.OldPosY;
-
+                    break;
+                case ("$"):
+                    Console.WriteLine("You gained +10 attack damage for picking up a sword");
+                    Console.ReadKey();
                     break;
                 case ("E"):
                     Console.Clear();
