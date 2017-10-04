@@ -99,6 +99,7 @@ namespace Lab4
                                 Console.WriteLine($"Steps: {Player.steps}");
                                 Console.WriteLine($"Score: {Player.score}");
                                 Console.WriteLine($"Health: {Player.playerHealthPoints}");
+                                Console.WriteLine($"Attack Dmg: {Player.playerAttack}");
                                 //Console.SetCursorPosition(Console.WindowWidth / 2, 0);                       
                                 Player.MovePlayer();
                                 break;
@@ -151,6 +152,7 @@ namespace Lab4
                     Console.WriteLine("\nEntered Monster Room!");
                     Console.ReadKey();
                     Combat.CombatSystem((MonsterRoom)map[playerPosY, playerPosX]);
+                    Console.Clear();
                     break;
                 case ("K"):
                     Console.WriteLine("\nYou entered a room and found a key!");
@@ -164,7 +166,10 @@ namespace Lab4
                     Player.CurPosY = Player.OldPosY;
                     break;
                 case ("$"):
-                    Console.WriteLine("You gained +10 attack damage for picking up a sword");
+                    
+                    Sword sword = new Sword();
+                    sword.ExtraAttackDamage();
+                    Console.WriteLine($"You gained +10 attack damage for picking up a sword");
                     Console.ReadKey();
                     break;
                 case ("E"):

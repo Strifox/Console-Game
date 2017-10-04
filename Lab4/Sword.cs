@@ -17,6 +17,8 @@ namespace Lab4
         {
             Player.playerAttack += 10;
         }
-        public Sword() { }
-    }
+        public Sword() : base()
+        { }
+
+        }
 }
