@@ -13,7 +13,6 @@ namespace Lab4
 
             while (enemy.isAlive && Player.isAlive)
             {
-
                 Console.WriteLine($"Your health is {Player.playerHealthPoints}");
                 Console.WriteLine($"The {enemy.Name}s health is {enemy.EnemyHealthPoints}");
                 Console.WriteLine("Press on '1' to attack");
@@ -49,7 +48,7 @@ namespace Lab4
                 if (fight.Key != ConsoleKey.NumPad1 && fight.Key != ConsoleKey.D1)
                     Console.WriteLine(WRONGINPUT);
 
-                // else-if statements of Player- or enemy death
+                // else-if statements of Player or enemy death
                 else if (enemy.EnemyHealthPoints <= 0)
                 {
                     enemy.isAlive = false;
@@ -61,8 +60,8 @@ namespace Lab4
                     Player.isAlive = false;
                     Console.WriteLine("You died!");
                     Console.WriteLine("GAME OVER");
+                    Console.ReadKey();
                 }
-
             }
         }
     }
