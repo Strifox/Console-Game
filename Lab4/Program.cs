@@ -9,6 +9,7 @@ namespace Lab4
     class Program
     {
         public static Sword sword = new Sword();
+        public static KeyRoom superkey = new KeyRoom(2);
         public static Board[,] map = new Board[8, 20]; // Skapar spelkartan, datatyp 'Board(Base-Class)'
         public static int mapLengthX = map.GetLength(1) - 1;
         public static int mapLengthY = map.GetLength(0) - 1;
@@ -97,6 +98,7 @@ namespace Lab4
                                 //Console.Clear();
                                 PrintMap(map);
                                 Console.WriteLine($"Keys: {Player.NumOfKeys}");
+                                Console.WriteLine($"SuperKey: {Player.numOfSuperkeys}");
                                 Console.WriteLine($"Steps: {Player.steps}");
                                 Console.WriteLine($"Score: {Player.score}");
                                 Console.WriteLine($"Health: {Player.playerHealthPoints}");
@@ -135,13 +137,34 @@ namespace Lab4
                 case ("D"):
                     Door.DoorInteraction();
                     if (!Door.IsLocked)
-                    {   
-
-                        Console.WriteLine("\nUnlocked door!");
-                        
-
-                        if (Player.NumOfKeys <= 0)
-                            Player.HasKey = false;
+                    {
+                        ConsoleKey option;
+                        do
+                        {
+                            Console.WriteLine("What key to use?\n1 - 'Key'\n2 - 'Superkey'");
+                            option = Console.ReadKey().Key;
+                            switch (option)
+                            {
+                                case ConsoleKey.D1:
+                                    if (Player.HasKey)
+                                    {
+                                        Player.NumOfKeys -= 1;
+                                        Console.WriteLine("Used Key");
+                                    }
+                                    break;
+                                case ConsoleKey.D2:
+                                    if (Player.hasSuperKey)
+                                    {
+                                        superkey.Durability -= 1;
+                                        superkey.CheckDurability();
+                                        Console.WriteLine("Used Superkey");
+                                    }
+                                    break;
+                                default:
+                                    Console.WriteLine("Wrong input!");
+                                    break;
+                            }
+                        } while (option != ConsoleKey.D1 && option != ConsoleKey.D2);
                     }
                     else
                     {
@@ -163,14 +186,15 @@ namespace Lab4
                     {
                         Player.numOfSuperkeys += 1;
                         Console.WriteLine("Found a super key");
-                     
+                        Player.hasSuperKey = true;
                     }
                     else
                     {
                         Player.NumOfKeys += 1;
                         Console.WriteLine("\nYou entered a room and found a key!");
+                        Player.HasKey = true;
                     }
-                    Player.HasKey = true;
+
                     Console.ReadKey();
                     break;
                 case ("#"):
@@ -179,7 +203,7 @@ namespace Lab4
                     Player.CurPosY = Player.OldPosY;
                     break;
                 case ("$"):
-                    
+
                     Sword sword = new Sword();
                     Player.hasSword = true;
                     sword.ExtraAttackDamage();

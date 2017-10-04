@@ -25,7 +25,10 @@ namespace Lab4
         public void CheckDurability()
         {
             if (Durability <= 0)
-                Player.NumOfKeys -= 1;
+            {
+                Player.numOfSuperkeys -= 1;
+            }
+
         }
 
        

@@ -22,7 +22,7 @@ namespace Lab4
 
         public static void DoorInteraction()
         {
-            if (Player.HasKey)
+            if (Player.HasKey || Player.hasSuperKey)
                 isLocked = false;
 
             else

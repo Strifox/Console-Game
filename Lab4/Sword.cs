@@ -20,7 +20,7 @@ namespace Lab4
         public void CheckDurability()
         {
             if (Durability <= 0)
-                Player.playerAttack -= 10;
+                Player.playerAttack -= 10;         
         }
 
         public void ExtraAttackDamage()

@@ -19,6 +19,7 @@ namespace Lab4
         private string icon = "@";
         private ConsoleColor color = ConsoleColor.Blue;
         // Public Fields
+        public static bool hasSuperKey = false;
         public static int playerAttack = 20;
         public static int playerHealthPoints = 100;
         public static bool isAlive = true;
