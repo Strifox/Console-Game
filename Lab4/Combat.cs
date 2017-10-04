@@ -44,11 +44,11 @@ namespace Lab4
                     }
 
                 }
-                // A failure statement in case of pressing the wrong button.
+                // If statement in case of pressing the wrong button.
                 if (fight.Key != ConsoleKey.NumPad1 && fight.Key != ConsoleKey.D1)
                     Console.WriteLine(WRONGINPUT);
 
-                // else-if statements of Player or enemy death
+                // else-if statements if Player or enemy dies
                 else if (enemy.EnemyHealthPoints <= 0)
                 {
                     enemy.isAlive = false;
