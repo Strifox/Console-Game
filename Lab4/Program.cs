@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-namespace Lab4
+//TODO
+namespace Lab_4
 {
     class Program
     {
-        public static IGraphic[,] map = new IGraphic[8, 20]; // Skapar spelkartan, datatyp 'Interface'
+        public static Board[,] map = new Board[8, 20]; // Skapar spelkartan, datatyp 'Interface'
         public static int mapLengthX = map.GetLength(1) - 1;
         public static int mapLengthY = map.GetLength(0) - 1;
         public enum LevelStates
@@ -17,8 +17,7 @@ namespace Lab4
         }
         public enum GameStates
         {
-            intro,
-            ingame,
+            start,
             exit
         }
         private static GameStates curGameState;
@@ -26,7 +25,6 @@ namespace Lab4
 
         static void Main(string[] args)
         {
-            Console.CursorVisible = false;
             // Initierar spelkartan och lägger till väggarna samt "korridorer"
             for (int y = 0; y < map.GetLength(0); y++)
             {
@@ -55,12 +53,11 @@ namespace Lab4
             map[3, 17] = new Door();
 
 
-            map[5, 3] = new MonsterRoom();
-            map[4, 5] = new MonsterRoom();
-            map[6, 11] = new MonsterRoom();
-            map[2, 12] = new MonsterRoom();
-            map[1, 5] = new MonsterRoom();
-
+            map[5, 3] = new Goblin(50, 10);
+            map[4, 5] = new Goblin(50, 10);
+            map[6, 11] = new Goblin(50, 10);
+            map[2, 12] = new Orc(70, 15);
+            map[1, 5] = new Orc(70, 15);
 
             map[6, 2] = new KeyRoom();
             map[5, 8] = new KeyRoom();
@@ -71,46 +68,31 @@ namespace Lab4
 
             map[Player.CurPosY, Player.CurPosX] = new Player();
 
-            curGameState = GameStates.intro;
+            curGameState = GameStates.start;
             curLevelState = LevelStates.level1;
 
-            // Start of Game Loop
-            while (curGameState != GameStates.exit && !Player.HasEscaped)
+            // Beginning of Game loop
+            while (curGameState != GameStates.exit && !Player.HasEscaped && Player.isAlive)
             {
-                Console.SetCursorPosition(0, 0);
-
-                switch (curGameState)
+                switch (curLevelState)
                 {
-                    case GameStates.intro:
-                        Console.SetCursorPosition(Console.WindowWidth / 3, Console.WindowHeight / 2);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Your goal is to exit the map as fast as possible!");
-                        Console.ReadKey();
+                    case (LevelStates.level1):
                         Console.Clear();
-                        curGameState = GameStates.ingame;
+                        PrintMap(map);
+                        Console.WriteLine($"Keys: {Player.NumOfKeys}");
+                        Console.WriteLine($"Steps: {Player.steps}");
+                        Console.WriteLine($"Score: {Player.score}");
+                        Console.WriteLine($"Health: {Player.playerHealthPoints}");
+                        //Console.SetCursorPosition(Console.WindowWidth / 2, 0);                       
+                        Player.MovePlayer();
                         break;
                 }
-                switch (curGameState)
-                {
-                    case GameStates.ingame:
-                        switch (curLevelState)
-                        {
-                            case LevelStates.level1:
-                                PrintMap(map);
-                                Console.WriteLine($"Keys: {Player.NumOfKeys}");
-                                Console.WriteLine($"Steps: {Player.Steps}");
-                                //Console.SetCursorPosition(Console.WindowWidth / 2, 0);                       
-                                Player.MovePlayer();
-                                break;
-                        }
-                        break;
-                }
-            } // End of Game Loop!
+            } // End of Game loop!
         }
-        // Skriver ut kartan och alla objekt på consolen.
-        private static void PrintMap(IGraphic[,] map)
+
+        public static void PrintMap(Board[,] map)
         {
-            //string tempMap = "";
+            // string tempMap = "";
             for (int y = 0; y < map.GetLength(0); y++)
             {
                 for (int x = 0; x < map.GetLength(1); x++)
@@ -139,25 +121,21 @@ namespace Lab4
                         Player.NumOfKeys -= 1;
                         if (Player.NumOfKeys <= 0)
                             Player.HasKey = false;
-                        else
-                            Player.HasKey = true;
                     }
                     else
                     {
                         Console.WriteLine("\nDoor is locked!");
-                        Player.Steps -= 1;
                         Player.CurPosX = Player.OldPosX;
                         Player.CurPosY = Player.OldPosY;
                     }
                     Console.ReadKey();
                     break;
                 case ("M"):
-                    Console.WriteLine("\nEntered Monster Room!\nYou are stuck\n+5 Steps!");
-                    Player.Steps += 5;
-
+                    Console.WriteLine("\nEntered Monster Room!\nYou loose x points");
                     Console.ReadKey();
+                    Combat.CombatSystem((MonsterRoom)map[playerPosY, playerPosX]);
                     break;
-                case ("k"):
+                case ("K"):
                     Console.WriteLine("\nYou entered a room and found a key!");
                     Player.NumOfKeys += 1;
                     Player.HasKey = true;
@@ -165,14 +143,15 @@ namespace Lab4
                     Console.ReadKey();
                     break;
                 case ("#"):
-                    Player.Steps -= 1;
+                    Player.steps--;
                     Player.CurPosX = Player.OldPosX;
                     Player.CurPosY = Player.OldPosY;
 
                     break;
                 case ("E"):
                     Console.Clear();
-                    Console.WriteLine("\nYOU ESCAPED!");
+                    Console.WriteLine("YOU ESCAPED!");
+                    Console.WriteLine($"Your score is: {Player.finalScore = Player.score - Player.steps}");
                     Player.HasEscaped = true;
                     Console.ReadKey();
                     break;
