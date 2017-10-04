@@ -43,11 +43,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs" />
+    <Compile Include="Combat.cs" />
     <Compile Include="Door.cs" />
     <Compile Include="ExitDoor.cs" />
+    <Compile Include="Goblin.cs" />
     <Compile Include="IGraphic.cs" />
     <Compile Include="KeyRoom.cs" />
     <Compile Include="MonsterRoom.cs" />
+    <Compile Include="Orc.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

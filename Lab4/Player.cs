@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Lab_4
+namespace Lab4
 {
-    public class Player : Board, IGraphic
+    public class Player : Board
     {
         // Private fields
         private static bool hasEscaped = false;
