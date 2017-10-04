@@ -8,7 +8,7 @@ namespace Lab4
 {
     class Program
     {
-        public static Board[,] map = new Board[8, 20]; // Skapar spelkartan, datatyp 'Interface'
+        public static Board[,] map = new Board[8, 20]; // Skapar spelkartan, datatyp 'Board(Base-Class)'
         public static int mapLengthX = map.GetLength(1) - 1;
         public static int mapLengthY = map.GetLength(0) - 1;
         public enum LevelStates
@@ -17,7 +17,8 @@ namespace Lab4
         }
         public enum GameStates
         {
-            start,
+            intro,
+            ingame,
             exit
         }
         private static GameStates curGameState;
@@ -68,28 +69,43 @@ namespace Lab4
 
             map[Player.CurPosY, Player.CurPosX] = new Player();
 
-            curGameState = GameStates.start;
+            curGameState = GameStates.intro;
             curLevelState = LevelStates.level1;
 
             // Beginning of Game loop
             while (curGameState != GameStates.exit && !Player.HasEscaped && Player.isAlive)
             {
-                switch (curLevelState)
+                Console.SetCursorPosition(0, 0);
+                switch (curGameState)
                 {
-                    case (LevelStates.level1):
+                    case GameStates.intro:
+                        Console.SetCursorPosition(Console.WindowWidth / 7, Console.WindowHeight / 2);
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Your goal is to escape with as few steps as possible and slay monsters for score boost");
+                        Console.ReadKey();
+                        curGameState = GameStates.ingame;
                         Console.Clear();
-                        PrintMap(map);
-                        Console.WriteLine($"Keys: {Player.NumOfKeys}");
-                        Console.WriteLine($"Steps: {Player.steps}");
-                        Console.WriteLine($"Score: {Player.score}");
-                        Console.WriteLine($"Health: {Player.playerHealthPoints}");
-                        //Console.SetCursorPosition(Console.WindowWidth / 2, 0);                       
-                        Player.MovePlayer();
+                        break;
+
+                    case GameStates.ingame:
+                        switch (curLevelState)
+                        {
+                            case LevelStates.level1:
+                                //Console.Clear();
+                                PrintMap(map);
+                                Console.WriteLine($"Keys: {Player.NumOfKeys}");
+                                Console.WriteLine($"Steps: {Player.steps}");
+                                Console.WriteLine($"Score: {Player.score}");
+                                Console.WriteLine($"Health: {Player.playerHealthPoints}");
+                                //Console.SetCursorPosition(Console.WindowWidth / 2, 0);                       
+                                Player.MovePlayer();
+                                break;
+                        }
                         break;
                 }
             } // End of Game loop!
-        }
-
+        } 
+        
         public static void PrintMap(Board[,] map)
         {
             // string tempMap = "";
@@ -106,7 +122,6 @@ namespace Lab4
                 Console.WriteLine("");
             }
             //Console.WriteLine(tempMap);
-
         }
         public static void CollitionDetection(int playerPosY, int playerPosX)
         {

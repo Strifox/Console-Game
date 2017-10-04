@@ -38,8 +38,6 @@ namespace Lab4
 
         public override ConsoleColor Color { get { return color; } set { color = value; } }
 
-
-
         // Constructor
         public Player() : base()
         { }
@@ -51,7 +49,7 @@ namespace Lab4
             oldPosY = curPosY;
             //ConsoleKey move;
             //move = Console.ReadKey().Key;
-            var move = Console.ReadKey();
+            var move = Console.ReadKey(true);
             if (move.Key == ConsoleKey.W)
                 curPosY -= 1;
             else if (move.Key == ConsoleKey.A)
@@ -60,33 +58,10 @@ namespace Lab4
                 curPosY += 1;
             else if (move.Key == ConsoleKey.D)
                 curPosX += 1;
-            //switch (move)
-            //{
-            //    case (ConsoleKey.W):
-            //        curPosY -= 1;
-            //        break;
-            //    case (ConsoleKey.S):
-            //        curPosY += 1;
-            //        break;
-            //    case (ConsoleKey.A):
-            //        curPosX -= 1;
-            //        break;
-            //    case (ConsoleKey.D):
-            //        curPosX += 1;
-            //        break;
-            //}
+
             if (curPosX != oldPosX || curPosY != oldPosY)
                 steps += 1;
 
-            /*if (curPosX < 1)
-                curPosX = 1;
-            if (curPosX >= Program.mapLengthX)
-                curPosX = Program.mapLengthX - 1;
-            if (curPosY < 1)
-                curPosY = 1;
-            if (curPosY >= Program.mapLengthY)
-                curPosY = Program.mapLengthY - 1;
-                */
             Program.CollitionDetection(curPosY, curPosX);
 
             Program.map[oldPosY, oldPosX] = new Room();
