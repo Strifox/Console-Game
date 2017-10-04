@@ -47,7 +47,7 @@
     <Compile Include="Door.cs" />
     <Compile Include="ExitDoor.cs" />
     <Compile Include="Goblin.cs" />
-    <Compile Include="IGraphic.cs" />
+    <Compile Include="IDurability.cs" />
     <Compile Include="KeyRoom.cs" />
     <Compile Include="MonsterRoom.cs" />
     <Compile Include="Orc.cs" />

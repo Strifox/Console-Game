@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Lab4
 {
-    interface IGraphic
+    interface IDurability
     {
+        int Durability { get; set; }
+        void CheckDurability();
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab4
 {
-    public class Door : Board, IGraphic
+    public class Door : Board
     {
         private static bool isLocked = true;
         private string icon = "D";

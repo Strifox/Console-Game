@@ -54,6 +54,7 @@ namespace Lab4
                     enemy.isAlive = false;
                     Console.WriteLine($"You have killed the {enemy.Name}");
                     Player.score += enemy.ScoreGained;
+                    
                 }
                 else if (Player.playerHealthPoints <= 0)
                 {

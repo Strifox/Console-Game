@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab4
 {
-    public class Wall : Board, IGraphic
+    public class Wall : Board
     {
         private string icon = "#";
         private ConsoleColor color = ConsoleColor.DarkGray;

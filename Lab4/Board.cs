@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab4
 {
-    public abstract class Board : IGraphic
+    public abstract class Board
     {
         public abstract ConsoleColor Color { get; set; }
         public abstract string Icon { get; set; }
