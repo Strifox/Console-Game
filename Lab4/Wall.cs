@@ -9,11 +9,12 @@ namespace Lab4
     public class Wall : Board, IGraphic
     {
         private string icon = "#";
+        private ConsoleColor color = ConsoleColor.DarkGray;
 
-        public ConsoleColor Color { get { return color; } set { color = value; } }
-        public string Icon { get { return icon; } set { value = icon; } }
+        public override ConsoleColor Color { get { return color; } set { color = value; } }
+        public override string Icon { get { return icon; } set { value = icon; } }
 
-        public Wall(): base()
+        public Wall() : base()
         { }
     }
 }
