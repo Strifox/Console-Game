@@ -54,6 +54,11 @@ namespace Lab4
                     enemy.isAlive = false;
                     Console.WriteLine($"You have killed the {enemy.Name}");
                     Player.score += enemy.ScoreGained;
+                    if (Player.hasSword)
+                    {
+                        Program.sword.Durability -= 1;
+                        Program.sword.CheckDurability();
+                    }
                     
                 }
                 else if (Player.playerHealthPoints <= 0)

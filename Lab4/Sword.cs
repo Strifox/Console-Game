@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab4
 {
-    class Sword : Board, IDurability
+    public class Sword : Board, IDurability
     {
         private int durability = 3;
         private string icon = "$";

@@ -8,14 +8,17 @@ namespace Lab4
 {
     public class KeyRoom : Room, IDurability
     {
-        private int durability = 2;
+        private int durability;
         private string icon = "K";
         private ConsoleColor color = ConsoleColor.DarkYellow;
         public override string Icon { get { return icon; } set { value = icon; } }
         public override ConsoleColor Color { get { return color; } set { Color = value; } }
         public bool hasKey = true;
 
-        public KeyRoom() : base() { }
+        public KeyRoom(int durability) : base()
+        {
+            this.durability = durability;
+        }
         // Interface
         public int Durability { get { return durability;} set { durability = value;} }
         
