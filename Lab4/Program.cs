@@ -13,6 +13,9 @@ namespace Lab4
         public static Board[,] map = new Board[8, 20]; // Skapar spelkartan, datatyp 'Board(Base-Class)'
         public static int mapLengthX = map.GetLength(1) - 1;
         public static int mapLengthY = map.GetLength(0) - 1;
+        private static string lastAction;
+        public static string LastAction { get { return lastAction; } set { lastAction = value; } } //Method to minimize the text used
+
         public enum LevelStates
         {
             level1
@@ -105,7 +108,7 @@ namespace Lab4
                                 Console.WriteLine($"Score: {Player.score}");
                                 Console.WriteLine($"Health: {Player.playerHealthPoints}");
                                 Console.WriteLine($"Attack Dmg: {Player.playerAttack}");
-                                //Console.SetCursorPosition(Console.WindowWidth / 2, 0);                       
+                                Console.WriteLine(LastAction);
                                 Player.MovePlayer();
                                 break;
                         }
@@ -129,7 +132,7 @@ namespace Lab4
         //Initiate invisible 2D array map with only walls visible at first
         public static void PrintMap(Board[,] map)
         {
-            
+
             for (int y = 0; y < map.GetLength(0); y++)
             {
                 for (int x = 0; x < map.GetLength(1); x++)
@@ -173,15 +176,15 @@ namespace Lab4
                                     if (Player.HasKey)
                                     {
                                         Player.NumOfKeys -= 1;
-                                        if (Player.NumOfKeys <= 0)
+                                        if (Player.NumOfKeys <= 0) { }
                                             Player.HasKey = false;
-                                        Console.WriteLine("\nUsed Key");
+                                        LastAction = "\nUsed Key";
                                     }
                                     else
                                     {
                                         Player.CurPosX = Player.OldPosX;
                                         Player.CurPosY = Player.OldPosY;
-                                        Console.WriteLine("\nYou dont have the required key!");
+                                        LastAction = "\nYou dont have the required key!";
                                     }
                                     break;
                                 case ConsoleKey.D2:
@@ -189,17 +192,18 @@ namespace Lab4
                                     {
                                         superkey.Durability -= 1;
                                         superkey.CheckDurability();
-                                        Console.WriteLine("\nUsed Superkey");
+                                        LastAction = "\nUsed Superkey";
                                     }
                                     else
                                     {
                                         Player.CurPosX = Player.OldPosX;
                                         Player.CurPosY = Player.OldPosY;
-                                        Console.WriteLine("\nYou dont have the required key!");
+                                        LastAction = "\nYou dont have the required key!";
+
                                     }
                                     break;
                                 default:
-                                    Console.WriteLine("\nWrong input!");
+                                    LastAction = "\nWrong input!";
                                     break;
 
                             }
@@ -208,15 +212,15 @@ namespace Lab4
                     }
                     else
                     {
-                        Console.WriteLine("\nDoor is locked!");
+                        LastAction = "\nDoor is locked!";
                         Player.CurPosX = Player.OldPosX;
                         Player.CurPosY = Player.OldPosY;
                     }
                     Console.ReadKey();
                     break;
                 case ("M"):
-                    Console.WriteLine("\nEntered Monster Room!");
-                    Console.ReadKey();
+                    LastAction = "\nYou entered a Monster Room!";
+                    Console.WriteLine(LastAction);
                     Combat.CombatSystem((MonsterRoom)map[playerPosY, playerPosX]);
                     Console.Clear();
                     break;
@@ -224,13 +228,13 @@ namespace Lab4
                     if (map[playerPosY, playerPosX] == map[5, 8])
                     {
                         Player.numOfSuperkeys += 1;
-                        Console.WriteLine("\nFound a super key");
+                        LastAction = "\nYou found a super key";
                         Player.hasSuperKey = true;
                     }
                     else
                     {
                         Player.NumOfKeys += 1;
-                        Console.WriteLine("\nYou entered a room and found a key!");
+                        LastAction = "\nYou entered a room and found a key!";
                         Player.HasKey = true;
                     }
                     Console.ReadKey();
@@ -244,13 +248,13 @@ namespace Lab4
                     Sword sword = new Sword();
                     Player.hasSword = true;
                     sword.ExtraAttackDamage();
-                    Console.WriteLine($"You gained +10 attack damage for picking up a sword");
+                    LastAction = $"You found a sword and +10 attack damage for picking up a sword";
                     Console.ReadKey();
                     break;
                 case ("T"):
                     if (map[playerPosY, playerPosX] == map[2, 15] || map[playerPosY, playerPosX] == map[1, 3])
                     {
-                        Console.WriteLine("You have stepped on an invisible trap \nYou gained +5 extra steps");
+                        LastAction = "You have stepped on an invisible trap \nYou gained +5 extra steps";
                         Player.steps += 5;
                     }
                     break;
