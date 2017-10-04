@@ -10,5 +10,6 @@ namespace Lab4
     {
         public abstract ConsoleColor Color { get; set; }
         public abstract string Icon { get; set; }
+        public abstract bool TileExplored { get; set; }
     }
 }

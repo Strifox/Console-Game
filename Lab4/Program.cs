@@ -55,6 +55,8 @@ namespace Lab4
             map[1, 10] = new Door();
             map[3, 17] = new Door();
 
+            map[2, 15] = new Trap();
+            map[1, 3] = new Trap();
 
             map[5, 3] = new Goblin(50, 10);
             map[4, 5] = new Goblin(50, 10);
@@ -111,23 +113,45 @@ namespace Lab4
                 }
             } // End of Game loop!
         }
+        //Debug method for invisible map
+        //Remove the // of the following 10 lines to use debug mode, also remove the // of line 154 (end of the PrintMap method)
+        //static public void DebugExploreMap()
+        //{
+        //    for (int y = 0; y < map.GetLength(0); y++)
+        //    {
+        //        for (int x = 0; x < map.GetLength(1); x++)
+        //        {
+        //            map[y, x].TileExplored = true;
+        //        }
+        //    }
+        //}
 
+        //Initiate invisible 2D array map with only walls visible at first
         public static void PrintMap(Board[,] map)
         {
-            // string tempMap = "";
+            
             for (int y = 0; y < map.GetLength(0); y++)
             {
                 for (int x = 0; x < map.GetLength(1); x++)
                 {
-                    //tempMap
-                    Console.ForegroundColor = map[y, x].Color;
-                    Console.Write(map[y, x].Icon);
+                    if (y < Player.CurPosY + 2 && y > Player.CurPosY - 2
+                        && x < Player.CurPosX + 2 && x > Player.CurPosX - 2)
+                    {
+                        if (!map[y, x].TileExplored)
+                            map[y, x].TileExplored = true;
 
+                    }
+                    if (map[y, x].TileExplored)
+                    {
+                        Console.ForegroundColor = map[y, x].Color;
+                        Console.Write(map[y, x].Icon);
+                    }
+                    else
+                        Console.Write(" ");
                 }
-                //tempMap += Environment.NewLine;
                 Console.WriteLine("");
             }
-            //Console.WriteLine(tempMap);
+            //DebugExploreMap();
         }
         public static void CollitionDetection(int playerPosY, int playerPosX)
         {
@@ -149,7 +173,15 @@ namespace Lab4
                                     if (Player.HasKey)
                                     {
                                         Player.NumOfKeys -= 1;
-                                        Console.WriteLine("Used Key");
+                                        if (Player.NumOfKeys <= 0)
+                                            Player.HasKey = false;
+                                        Console.WriteLine("\nUsed Key");
+                                    }
+                                    else
+                                    {
+                                        Player.CurPosX = Player.OldPosX;
+                                        Player.CurPosY = Player.OldPosY;
+                                        Console.WriteLine("\nYou dont have the required key!");
                                     }
                                     break;
                                 case ConsoleKey.D2:
@@ -157,13 +189,21 @@ namespace Lab4
                                     {
                                         superkey.Durability -= 1;
                                         superkey.CheckDurability();
-                                        Console.WriteLine("Used Superkey");
+                                        Console.WriteLine("\nUsed Superkey");
+                                    }
+                                    else
+                                    {
+                                        Player.CurPosX = Player.OldPosX;
+                                        Player.CurPosY = Player.OldPosY;
+                                        Console.WriteLine("\nYou dont have the required key!");
                                     }
                                     break;
                                 default:
-                                    Console.WriteLine("Wrong input!");
+                                    Console.WriteLine("\nWrong input!");
                                     break;
+
                             }
+
                         } while (option != ConsoleKey.D1 && option != ConsoleKey.D2);
                     }
                     else
@@ -181,11 +221,10 @@ namespace Lab4
                     Console.Clear();
                     break;
                 case ("K"):
-
                     if (map[playerPosY, playerPosX] == map[5, 8])
                     {
                         Player.numOfSuperkeys += 1;
-                        Console.WriteLine("Found a super key");
+                        Console.WriteLine("\nFound a super key");
                         Player.hasSuperKey = true;
                     }
                     else
@@ -194,7 +233,6 @@ namespace Lab4
                         Console.WriteLine("\nYou entered a room and found a key!");
                         Player.HasKey = true;
                     }
-
                     Console.ReadKey();
                     break;
                 case ("#"):
@@ -203,12 +241,18 @@ namespace Lab4
                     Player.CurPosY = Player.OldPosY;
                     break;
                 case ("$"):
-
                     Sword sword = new Sword();
                     Player.hasSword = true;
                     sword.ExtraAttackDamage();
                     Console.WriteLine($"You gained +10 attack damage for picking up a sword");
                     Console.ReadKey();
+                    break;
+                case ("T"):
+                    if (map[playerPosY, playerPosX] == map[2, 15] || map[playerPosY, playerPosX] == map[1, 3])
+                    {
+                        Console.WriteLine("You have stepped on an invisible trap \nYou gained +5 extra steps");
+                        Player.steps += 5;
+                    }
                     break;
                 case ("E"):
                     Console.Clear();

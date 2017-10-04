@@ -18,6 +18,7 @@ namespace Lab4
         private static int oldPosY;
         private string icon = "@";
         private ConsoleColor color = ConsoleColor.Blue;
+        private bool tileExplored;
         // Public Fields
         public static bool hasSuperKey = false;
         public static int playerAttack = 20;
@@ -34,11 +35,11 @@ namespace Lab4
         public static int CurPosY { get { return curPosY; } set { curPosY = value; } }
         public static int OldPosX { get { return oldPosX; } set { oldPosX = value; } }
         public static int OldPosY { get { return oldPosY; } set { oldPosY = value; } }
+        public static int NumOfKeys { get { return numOfKeys; } set { numOfKeys = value; } }
         public override string Icon { get { return icon; } set { value = icon; } }
         public static bool HasKey { get { return hasKey; } set { hasKey = value; } }
-        public static int NumOfKeys { get { return numOfKeys; } set { numOfKeys = value; } }
         public static bool HasEscaped { get { return hasEscaped; } set { hasEscaped = value; } }
-
+        public override bool TileExplored { get { return tileExplored; } set { tileExplored = value; } }
         public override ConsoleColor Color { get { return color; } set { color = value; } }
 
         // Constructor
@@ -50,8 +51,6 @@ namespace Lab4
         {
             oldPosX = curPosX;
             oldPosY = curPosY;
-            //ConsoleKey move;
-            //move = Console.ReadKey().Key;
             var move = Console.ReadKey(true);
             if (move.Key == ConsoleKey.W)
                 curPosY -= 1;

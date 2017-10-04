@@ -10,6 +10,8 @@ namespace Lab4
     {
         private string icon = " ";
         private ConsoleColor color = ConsoleColor.Red;
+        private bool tileExplored;
+        public override bool TileExplored { get { return tileExplored; } set { tileExplored = value; } }
         public override string Icon { get { return icon; } set { value = icon; } }
 
         public override ConsoleColor Color { get { return color; } set { color = value; } }

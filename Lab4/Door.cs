@@ -11,7 +11,8 @@ namespace Lab4
         private static bool isLocked = true;
         private string icon = "D";
         private ConsoleColor color = ConsoleColor.DarkGreen;
-
+        private bool tileExplored;
+        public override bool TileExplored { get { return tileExplored; } set { tileExplored = value; } }
         public override string Icon { get { return icon; } set { icon = value; } }
         public static bool IsLocked { get { return isLocked; } set { value = isLocked; } }
 

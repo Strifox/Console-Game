@@ -11,7 +11,8 @@ namespace Lab4
         private int durability = 3;
         private string icon = "$";
         private ConsoleColor color = ConsoleColor.DarkCyan;
-
+        private bool tileExplored;
+        public override bool TileExplored { get { return tileExplored; } set { tileExplored = value; } }
         public override ConsoleColor Color { get { return color; } set { color = value; } }
         public override string Icon { get { return icon; } set { value = icon; } }
         // Interface
