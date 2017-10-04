@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab4
 {
-    public class KeyRoom : Room
+    public class KeyRoom : Room, IDurability
     {
         private int durability;
         private string icon = "K";
