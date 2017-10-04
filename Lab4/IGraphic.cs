@@ -8,7 +8,5 @@ namespace Lab4
 {
     interface IGraphic
     {
-        ConsoleColor Color {get; set;}
-        string Icon { get; set; }
     }
 }
