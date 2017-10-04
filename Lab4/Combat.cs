@@ -61,6 +61,7 @@ namespace Lab4
                     Player.isAlive = false;
                     Console.WriteLine("You died!");
                     Console.WriteLine("GAME OVER");
+                    Console.ReadKey();
                 }
 
             }
