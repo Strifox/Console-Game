@@ -133,7 +133,7 @@ namespace Lab4
                     Console.ReadKey();
                     break;
                 case ("M"):
-                    Console.WriteLine("\nEntered Monster Room!\nYou loose x points");
+                    Console.WriteLine("\nEntered Monster Room!");
                     Console.ReadKey();
                     Combat.CombatSystem((MonsterRoom)map[playerPosY, playerPosX]);
                     break;
