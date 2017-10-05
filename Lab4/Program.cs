@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Lab4
 {
     // ----------------------<<<<<<< HIGHSCORE  Emil : 166 Score.
+    // Lab 4: Daniel Bäck, Kim Lundqvist, Johan Svensson
     class Program
     {   
         public static Sword sword = new Sword();
