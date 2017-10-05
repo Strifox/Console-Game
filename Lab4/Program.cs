@@ -116,23 +116,10 @@ namespace Lab4
                 }
             } // End of Game loop!
         }
-        //Debug method for invisible map
-        //Remove the // of the following 10 lines to use debug mode, also remove the // of line 154 (end of the PrintMap method)
-        //static public void DebugExploreMap()
-        //{
-        //    for (int y = 0; y < map.GetLength(0); y++)
-        //    {
-        //        for (int x = 0; x < map.GetLength(1); x++)
-        //        {
-        //            map[y, x].TileExplored = true;
-        //        }
-        //    }
-        //}
 
         //Initiate invisible 2D array map with only walls visible at first
         public static void PrintMap(Board[,] map)
         {
-
             for (int y = 0; y < map.GetLength(0); y++)
             {
                 for (int x = 0; x < map.GetLength(1); x++)
@@ -154,7 +141,7 @@ namespace Lab4
                 }
                 Console.WriteLine("");
             }
-            //DebugExploreMap();
+            //Debug.DebugExploreMap();  //Debug Method
         }
         public static void CollitionDetection(int playerPosY, int playerPosX)
         {
@@ -177,7 +164,7 @@ namespace Lab4
                                     {
                                         Player.NumOfKeys -= 1;
                                         if (Player.NumOfKeys <= 0) { }
-                                            Player.HasKey = false;
+                                        Player.HasKey = false;
                                         LastAction = "\nUsed Key";
                                     }
                                     else
@@ -256,6 +243,8 @@ namespace Lab4
                     {
                         LastAction = "You have stepped on an invisible trap \nYou gained +5 extra steps";
                         Player.steps += 5;
+                        Trap triggered = new Trap();
+
                     }
                     break;
                 case ("E"):

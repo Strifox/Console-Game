@@ -12,7 +12,7 @@ namespace Lab4
         private string triggeredIcon = "X";
         private ConsoleColor color = ConsoleColor.Black;
         private bool tileExplored;
-        private bool triggered;
+        private bool triggered = false;
 
         public bool Triggered { get { return triggered; } set { triggered = value; } }
         public override bool TileExplored { get { return tileExplored; } set { tileExplored = value; } }
