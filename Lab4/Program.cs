@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab4
 {
-    // ----------------------<<<<<<< HIGHSCORE : 
+    // ----------------------<<<<<<< HIGHSCORE  Emil : 166 Score.
     class Program
     {   
         public static Sword sword = new Sword();
@@ -91,8 +91,6 @@ namespace Lab4
             // Beginning of Game loop
             while (curGameState != GameStates.exit && !Player.HasEscaped && Player.isAlive)
             {
-                // rensa 
-                
                 Console.SetCursorPosition(0, 0);
                 
 
@@ -243,14 +241,12 @@ namespace Lab4
                     Player.CurPosY = Player.OldPosY;
                     break;
                 case ("$"):
-                    Sword sword = new Sword();
                     Player.hasSword = true;
                     sword.ExtraAttackDamage();
                     LastAction = "\nYou found a sword and gained +10 attack damage";
                     //Console.ReadKey();
                     break;
                 case ("¤"):
-                    Shield shield = new Shield();
                     Player.hasShield = true;
                     shield.HealthBoost();
                     LastAction = "\nYou found a Shield and gained +20 health points";

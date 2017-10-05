@@ -20,8 +20,16 @@ namespace Lab4
 
         public void CheckDurability()
         {
-            if (Durability <= 0)
-                Player.playerAttack -= 10;         
+            if (durability <= 0)
+            {
+                Player.hasSword = false;
+                Console.Clear();
+                Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight / 2);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Sword broke\nYou are weak!");
+                Console.ReadKey();
+                Player.playerAttack -= 10;
+            }
         }
 
         public void ExtraAttackDamage()

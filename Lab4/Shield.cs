@@ -20,8 +20,16 @@ namespace Lab4
 
         public void CheckDurability()
         {
-            if (Durability <= 0)
+            if (durability <= 0)
+            {
+                Player.hasShield = false;
+                Console.Clear();
+                Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight / 2);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Shield broke\nYou are vulnerable!");
+                Console.ReadKey();
                 Player.playerHealthPoints -= 20;
+            }
         }
 
         public void HealthBoost()

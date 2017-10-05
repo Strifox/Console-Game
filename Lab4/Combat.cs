@@ -45,13 +45,21 @@ namespace Lab4
 
                 }
                 // A failure statement in case of pressing the wrong button.
-                if (fight.Key != ConsoleKey.NumPad1 && fight.Key != ConsoleKey.D1)
+                else if (fight.Key != ConsoleKey.NumPad1 && fight.Key != ConsoleKey.D1)
                     Console.WriteLine(WRONGINPUT);
 
                 // else-if statements of Player or enemy death
+                if (Player.playerHealthPoints <= 0)
+                {
+                    Player.isAlive = false;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("You died!");
+                    Console.WriteLine("GAME OVER");
+                    Console.ReadKey();
+                }
+
                 else if (enemy.EnemyHealthPoints <= 0)
                 {
-                    enemy.isAlive = false;
                     Console.WriteLine($"You have killed the {enemy.Name}");
                     Player.score += enemy.ScoreGained;
                     if (Player.hasSword)
@@ -59,20 +67,14 @@ namespace Lab4
                         Program.sword.Durability -= 1;
                         Program.sword.CheckDurability();
                     }
-                    if (Player.hasShield) {
-                        Program.shield.CheckDurability();
+                    if (Player.hasShield)
+                    {
                         Program.shield.Durability -= 1;
-
-                    } 
-                    
+                        Program.shield.CheckDurability();  
+                    }
+                    enemy.isAlive = false;
                 }
-                if (Player.playerHealthPoints <= 0)
-                {
-                    Player.isAlive = false;
-                    Console.WriteLine("You died!");
-                    Console.WriteLine("GAME OVER");
-                    Console.ReadKey();
-                }
+               
             }
         }
     }
