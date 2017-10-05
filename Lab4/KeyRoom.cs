@@ -17,8 +17,6 @@ namespace Lab4
         public override ConsoleColor Color { get { return color; } set { Color = value; } }
         public bool hasKey = true;
 
-       
-
         public KeyRoom(int durability) : base()
         {
             this.durability = durability;
@@ -33,8 +31,6 @@ namespace Lab4
                 Player.hasSuperKey = false;
                 Player.numOfSuperkeys -= 1;
             }
-            else
-                Durability -= 1;
         }
     }
 }

@@ -141,7 +141,7 @@ namespace Lab4
                 }
                 Console.WriteLine("");
             }
-            //Debug.DebugExploreMap();  //Debug Method
+            Debug.DebugExploreMap();  //Debug Method
         }
         public static void CollitionDetection(int playerPosY, int playerPosX)
         {
@@ -235,17 +235,14 @@ namespace Lab4
                     Sword sword = new Sword();
                     Player.hasSword = true;
                     sword.ExtraAttackDamage();
-                    LastAction = $"You found a sword and +10 attack damage for picking up a sword";
+                    LastAction = $"You found a sword and gained +10 attack damage";
                     Console.ReadKey();
                     break;
                 case ("T"):
-                    if (map[playerPosY, playerPosX] == map[2, 15] || map[playerPosY, playerPosX] == map[1, 3])
-                    {
-                        LastAction = "You have stepped on an invisible trap \nYou gained +5 extra steps";
-                        Player.steps += 5;
-                        Trap triggered = new Trap();
-
-                    }
+                    Trap trap = (Trap)map[playerPosY, playerPosX];
+                    LastAction = "You have stepped on an invisible trap \nYou gained +5 extra steps";
+                    Player.steps += 5;
+                    Console.ReadKey();
                     break;
                 case ("E"):
                     Console.Clear();
