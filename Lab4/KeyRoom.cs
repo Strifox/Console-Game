@@ -30,11 +30,9 @@ namespace Lab4
         {
             if (Durability <= 0)
             {
-                Player.hasSuperKey = false;
                 Player.numOfSuperkeys -= 1;
+                Player.hasSuperKey = false;
             }
-            else
-                Durability -= 1;
         }
     }
 }

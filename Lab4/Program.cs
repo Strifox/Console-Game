@@ -192,7 +192,6 @@ namespace Lab4
                                 default:
                                     LastAction = "\nWrong input!";
                                     break;
-
                             }
 
                         } while (option != ConsoleKey.D1 && option != ConsoleKey.D2);
@@ -244,7 +243,6 @@ namespace Lab4
                         LastAction = "You have stepped on an invisible trap \nYou gained +5 extra steps";
                         Player.steps += 5;
                         Trap triggered = new Trap();
-
                     }
                     break;
                 case ("E"):
