@@ -192,7 +192,6 @@ namespace Lab4
                                 default:
                                     LastAction = "\nWrong input!";
                                     break;
-
                             }
 
                         } while (option != ConsoleKey.D1 && option != ConsoleKey.D2);
