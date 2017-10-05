@@ -28,6 +28,7 @@ namespace Lab4
         public static int score = 0;
         public static int finalScore = 0;
         public static bool hasSword = false;
+        public static bool hasShield = false;
         public static int numOfSuperkeys = 0;
 
         // Access Modifiers (Propertys)
@@ -51,7 +52,11 @@ namespace Lab4
         {
             oldPosX = curPosX;
             oldPosY = curPosY;
+            
             var move = Console.ReadKey(true);
+            Console.SetCursorPosition(0, 15);
+            Program.ClearCurrentConsoleLine();
+            Program.LastAction = "";
             if (move.Key == ConsoleKey.W)
                 curPosY -= 1;
             else if (move.Key == ConsoleKey.A)

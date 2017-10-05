@@ -59,9 +59,14 @@ namespace Lab4
                         Program.sword.Durability -= 1;
                         Program.sword.CheckDurability();
                     }
+                    if (Player.hasShield) {
+                        Program.shield.CheckDurability();
+                        Program.shield.Durability -= 1;
+
+                    } 
                     
                 }
-                else if (Player.playerHealthPoints <= 0)
+                if (Player.playerHealthPoints <= 0)
                 {
                     Player.isAlive = false;
                     Console.WriteLine("You died!");

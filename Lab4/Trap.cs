@@ -9,7 +9,7 @@ namespace Lab4
     class Trap : Board
     {
         private string icon = "T";
-        private ConsoleColor color = ConsoleColor.Black;
+        private ConsoleColor color = ConsoleColor.DarkRed;
         private bool tileExplored = false;
 
         public override bool TileExplored { get { return tileExplored; } set { tileExplored = value; } }

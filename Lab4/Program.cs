@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-//TODO
+
+
 namespace Lab4
 {
+    // ----------------------<<<<<<< HIGHSCORE : 
     class Program
-    {
+    {   
         public static Sword sword = new Sword();
         public static KeyRoom superkey = new KeyRoom(2);
+        public static Shield shield = new Shield();
         public static Board[,] map = new Board[8, 20]; // Skapar spelkartan, datatyp 'Board(Base-Class)'
         public static int mapLengthX = map.GetLength(1) - 1;
         public static int mapLengthY = map.GetLength(0) - 1;
@@ -31,6 +34,7 @@ namespace Lab4
 
         static void Main(string[] args)
         {
+            Console.CursorVisible = false;
             // Initierar spelkartan och lägger till väggarna samt "korridorer"
             for (int y = 0; y < map.GetLength(0); y++)
             {
@@ -59,7 +63,8 @@ namespace Lab4
             map[3, 17] = new Door();
 
             map[2, 15] = new Trap();
-            map[1, 3] = new Trap();
+            map[2, 2] = new Trap();
+            map[5, 15] = new Trap();
 
             map[5, 3] = new Goblin(50, 10);
             map[4, 5] = new Goblin(50, 10);
@@ -74,17 +79,23 @@ namespace Lab4
 
             map[5, 10] = new Sword();
 
+            map[4, 1] = new Shield();
+
             map[1, 2] = new ExitDoor();
 
             map[Player.CurPosY, Player.CurPosX] = new Player();
 
             curGameState = GameStates.intro;
             curLevelState = LevelStates.level1;
-
+            
             // Beginning of Game loop
             while (curGameState != GameStates.exit && !Player.HasEscaped && Player.isAlive)
             {
+                // rensa 
+                
                 Console.SetCursorPosition(0, 0);
+                
+
                 switch (curGameState)
                 {
                     case GameStates.intro:
@@ -141,7 +152,7 @@ namespace Lab4
                 }
                 Console.WriteLine("");
             }
-            Debug.DebugExploreMap();  //Debug Method
+            //Debug.DebugExploreMap();  //Debug Method
         }
         public static void CollitionDetection(int playerPosY, int playerPosX)
         {
@@ -155,6 +166,7 @@ namespace Lab4
                         ConsoleKey option;
                         do
                         {
+                            Console.Clear(); 
                             Console.WriteLine("What key to use?\n1 - 'Key'\n2 - 'Superkey'");
                             option = Console.ReadKey().Key;
                             switch (option)
@@ -202,7 +214,7 @@ namespace Lab4
                         Player.CurPosX = Player.OldPosX;
                         Player.CurPosY = Player.OldPosY;
                     }
-                    Console.ReadKey();
+                    //Console.ReadKey();
                     break;
                 case ("M"):
                     LastAction = "\nYou entered a Monster Room!";
@@ -223,7 +235,7 @@ namespace Lab4
                         LastAction = "\nYou entered a room and found a key!";
                         Player.HasKey = true;
                     }
-                    Console.ReadKey();
+                    //Console.ReadKey();
                     break;
                 case ("#"):
                     Player.steps--;
@@ -234,23 +246,43 @@ namespace Lab4
                     Sword sword = new Sword();
                     Player.hasSword = true;
                     sword.ExtraAttackDamage();
-                    LastAction = $"You found a sword and gained +10 attack damage";
-                    Console.ReadKey();
+                    LastAction = "\nYou found a sword and gained +10 attack damage";
+                    //Console.ReadKey();
+                    break;
+                case ("¤"):
+                    Shield shield = new Shield();
+                    Player.hasShield = true;
+                    shield.HealthBoost();
+                    LastAction = "\nYou found a Shield and gained +20 health points";
+                    //Console.ReadKey();
                     break;
                 case ("T"):
                     Trap trap = (Trap)map[playerPosY, playerPosX];
-                    LastAction = "You have stepped on an invisible trap \nYou gained +5 extra steps";
-                    Player.steps += 5;
-                    Console.ReadKey();
+                    LastAction = "\nYou have stepped on a trap! You gained +8 extra steps";
+                    Player.steps += 8;
+                    //Console.ReadKey();
                     break;
                 case ("E"):
                     Console.Clear();
-                    Console.WriteLine("YOU ESCAPED!");
-                    Console.WriteLine($"Your score is: {Player.finalScore = Player.score - Player.steps}");
-                    Player.HasEscaped = true;
+                    Console.SetCursorPosition(Console.WindowWidth / 2, Console.WindowHeight / 2);
+                    Console.ForegroundColor = ConsoleColor.DarkGreen;
+                    Console.Write("YOU ESCAPED!\n");
+                    Player.finalScore = Player.score - Player.steps;
+                    Console.Write($"Your score is: {Player.finalScore}");
                     Console.ReadKey();
+                    Player.HasEscaped = true;
+                    //Console.ReadKey();
                     break;
             }
         }
+
+        public static void ClearCurrentConsoleLine()
+        {
+            int currentLineCursor = Console.CursorTop;
+            Console.SetCursorPosition(0, Console.CursorTop);
+            Console.Write(new string(' ', Console.WindowWidth));
+            Console.SetCursorPosition(0, currentLineCursor);
+        }
     }
+        
 }
