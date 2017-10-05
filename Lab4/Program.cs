@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lab4
 {
-    // ----------------------<<<<<<< HIGHSCORE  Emil : 166 Score.
+    // ----------------------<<<<<<< HIGHSCORE  Emil : 166 Score. Johans Sambo : 23 Score. Johans Bror : 77 Score. 
     // Lab 4: Daniel Bäck, Kim Lundqvist, Johan Svensson
     class Program
     {   
